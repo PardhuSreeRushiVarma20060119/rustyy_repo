@@ -294,3 +294,134 @@ fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
 
 *Generated from rustlings exercises analysis*  
 *Last updated: September 21, 2025*
+
+---
+
+## 7. Slices (slices1) ✅
+
+### Concepts Learned:
+- **Array slicing syntax**: `&array[start..end]` where end is exclusive
+- **Slices are zero-copy references** to contiguous data in arrays
+- **Borrowing without ownership transfer**
+- **Slice type is `&[T]`**
+
+### Code Example:
+
+```rust path=null start=null
+fn main() {
+    let a = [1, 2, 3, 4, 5];
+    let nice_slice = &a[1..4];  // Slice from index 1 to 3
+    
+    assert_eq!([2, 3, 4], nice_slice);
+}
+```
+
+**Key Learning**: Slices provide safe, zero-copy access to array elements without full ownership.
+
+---
+
+## 8. Tuples & Destructuring (tuples1) ✅
+
+### Concepts Learned:
+- **Tuples are fixed-size collections** of different types: `(Type1, Type2, ...)`
+- **Tuple destructuring**: unpacking values into named variables
+- **Destructuring syntax**: `let (var1, var2) = tuple;`
+- **More idiomatic than index access** (tuple.0, tuple.1)
+- **Increases code readability** with named variables
+
+### Code Example:
+
+```rust path=null start=null
+fn main() {
+    let cat = ("Furry McFurson", 3.5);
+    
+    // Destructure tuple into named variables
+    let (name, age) = cat;
+    
+    println!("{name} is {age} years old");
+}
+```
+
+**Key Learning**: Destructuring is idiomatic Rust and preferred over index-based access for code clarity.
+
+---
+
+## 9. Vectors & Iterators (vecs2) - Iterator vs Loop Analysis ✅
+
+### Question: Which approach is more commonly used by Rust developers?
+### Answer: **`iter().map(...).collect()` is MOST COMMON**
+
+### Why Rustaceans Prefer Iterators:
+- **Declarative** - expresses intent clearly
+- **Composable** - chains easily with filter, enumerate, etc.
+- **Safer** - harder to introduce logic errors
+- **Idiomatic** - reads like functional/mathematical code
+
+### Most Common Pattern:
+```rust path=null start=null
+input.iter().map(|x| x * 2).collect()
+```
+
+### When to Use Traditional For Loops:
+- **Early breaks or continues** needed
+- **Complex conditional logic** with multiple branches
+- **Multiple side effects** in loop body
+- **Performance tuning** with `with_capacity()`
+
+### Traditional Loop Pattern (When Appropriate):
+```rust path=null start=null
+let mut out = Vec::new();
+for x in input {
+    out.push(x * 2);
+}
+```
+
+### What Senior Rust Developers Actually Write:
+
+**Optimized Loop Version (when performance matters):**
+```rust path=null start=null
+let mut out = Vec::with_capacity(input.len());
+for &x in input {
+    out.push(x * 2);
+}
+```
+
+**Clean Iterator Version (preferred default):**
+```rust path=null start=null
+input.iter().map(|&x| x * 2).collect()
+```
+
+*Note: The `|&x|` pattern avoids implicit deref and is preferred in code reviews.*
+
+### Idiomatic Rust Guideline 🧠
+**Start with iterators → drop to loops only when logic demands it**
+
+*This is opposite to many other languages where loops are the default choice.*
+
+### Comparison Table:
+
+| Aspect | Iterators | For Loops |
+|--------|-----------|----------|
+| Readability | Excellent (declarative) | Good (explicit) |
+| Composability | Great (chainable) | Limited |
+| Safety | Very safe (functional) | Requires care |
+| Performance | Excellent (zero-cost abstractions) | Excellent (with capacity) |
+| Default Choice | ✅ YES | Only when needed |
+
+**Key Learning**: Rust's iterator pattern is preferred by default, but pragmatism wins when loop logic is complex. This mindset is characteristic of idiomatic Rust development.
+
+---
+
+## Updated Progress Summary
+
+### ✅ Recently Completed Sections:
+1. **Slices (slices1)** - Array slicing and borrowing
+2. **Tuples & Destructuring (tuples1)** - Tuple unpacking for cleaner code
+3. **Vectors & Iterators (vecs2)** - Iterator patterns and practical usage
+
+### 🎯 Key Paradigm Shift:
+Rust developers think **functionally by default** with iterators, unlike imperative languages where loops are the norm. This is a fundamental difference in Rust's philosophy.
+
+---
+
+## Last updated: January 15, 2026
