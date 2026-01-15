@@ -244,87 +244,7 @@ let sum: i32 = number as i32 + 5;  // Type casting
 
 ---
 
-## 6. Move Semantics & Ownership ⚠️
-
-### Concepts Identified (Advanced Topic):
-- **Ownership transfer**
-- **Mutable references**
-- **Move vs Clone**
-
-### Examples Found:
-
-#### Basic Move Semantics:
-```rust path=C:\Users\pardh\Desktop\Rust\rustlings\exercises\06_move_semantics\move_semantics1.rs start=2
-fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
-    let vec = vec; // Takes ownership
-    vec.push(88); // ERROR: vec is immutable
-    vec
-}
-```
-
-#### Solution with Mutability:
-```rust path=C:\Users\pardh\Desktop\Rust\rustlings\exercises\06_move_semantics\move_semantics2.rs start=1
-fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
-    let mut vec = vec; // Make mutable to modify
-    vec.push(88);
-    vec
-}
-// Issue: Original vector is moved and no longer accessible
-```
-
-**Key Learning**: Ownership is transferred when passing values to functions.
-
----
-
-## Summary of Current Progress
-
-### ✅ Completed Concepts:
-1. **Introduction & Setup** - Basic Rust program structure
-2. **Variables** - Declaration, mutability, shadowing, constants
-3. **Functions** - Parameters, return types, expressions vs statements
-4. **Control Flow** - if/else expressions, type consistency, comparisons
-5. **Primitive Types** - booleans, characters, integers, floats, arrays
-6. **Slices** - Array slicing and borrowing
-7. **Tuples & Destructuring** - Tuple unpacking for cleaner code
-8. **Vectors & Iterators** - Iterator patterns and practical usage
-
-### ⚠️ In Progress/Need Work:
-1. **Move Semantics** - Advanced ownership concepts started
-
-### 📝 Key Rust Principles Learned:
-1. **Immutability by Default** - Variables are immutable unless marked `mut`
-2. **Explicit Typing** - Function parameters and some variables need type annotations
-3. **Expression-based** - Functions return the last expression automatically
-4. **Memory Safety** - Ownership system prevents common programming errors
-5. **Zero-cost Abstractions** - High-level features compile to efficient code
-
----
-
-## Next Steps for Learning:
-
-1. **Complete Control Flow exercises** (if1.rs, if2.rs, if3.rs)
-2. **Finish Primitive Types** (arrays, tuples, slices)
-3. **Master Move Semantics** (ownership, borrowing, references)
-4. **Progress to Collections** (vectors, hashmaps)
-5. **Learn Error Handling** (Result, Option types)
-6. **Study Advanced Features** (traits, generics, lifetimes)
-
----
-
-## Practice Recommendations:
-
-1. Focus on **ownership concepts** - most important Rust feature
-2. Practice **type consistency** in control flow
-3. Understand **mutability rules** thoroughly
-4. Write small programs applying each concept
-5. Read compiler error messages carefully - they're very helpful in Rust!
-
-*Generated from rustlings exercises analysis*  
-*Last updated: September 21, 2025*
-
----
-
-## 7. Slices (slices1) ✅
+## 6. Slices (slices1) ✅
 
 ### Concepts Learned:
 - **Array slicing syntax**: `&array[start..end]` where end is exclusive
@@ -347,7 +267,7 @@ fn main() {
 
 ---
 
-## 8. Tuples & Destructuring (tuples1) ✅
+## 7. Tuples & Destructuring (tuples1) ✅
 
 ### Concepts Learned:
 - **Tuples are fixed-size collections** of different types: `(Type1, Type2, ...)`
@@ -373,7 +293,7 @@ fn main() {
 
 ---
 
-## 9. Vectors & Iterators (vecs2) - Iterator vs Loop Analysis ✅
+## 8. Vectors & Iterators (vecs2) - Iterator vs Loop Analysis ✅
 
 ### Question: Which approach is more commonly used by Rust developers?
 ### Answer: **`iter().map(...).collect()` is MOST COMMON**
@@ -439,19 +359,7 @@ input.iter().map(|&x| x * 2).collect()
 
 ---
 
-## Updated Progress Summary
-
-### ✅ Recently Completed Sections:
-1. **Slices (slices1)** - Array slicing and borrowing
-2. **Tuples & Destructuring (tuples1)** - Tuple unpacking for cleaner code
-3. **Vectors & Iterators (vecs2)** - Iterator patterns and practical usage
-
-### 🎯 Key Paradigm Shift:
-Rust developers think **functionally by default** with iterators, unlike imperative languages where loops are the norm. This is a fundamental difference in Rust's philosophy.
-
----
-
-## 10. Move Semantics & Borrowing (move_semantics4-5) ✅
+## 9. Move Semantics & Borrowing (move_semantics4-5) ✅
 
 ### Concepts Learned:
 - **Ownership** - Only one owner of data at a time
@@ -556,20 +464,25 @@ fn main() {
 
 ## Final Progress Summary
 
-### Major Topics Covered:
-- ✅ Fundamentals (intro, variables, functions)
-- ✅ Control structures (if expressions, type consistency)
-- ✅ Primitive types (bool, char, numbers, arrays)
-- ✅ Collections (tuples, slices, vectors)
-- ✅ Functional patterns (iterators, map, collect)
-- ✅ Ownership & borrowing (move_semantics4-5)
+### ✅ All 9 Major Topics Complete:
+1. **Introduction & Setup** - Basic Rust program structure
+2. **Variables & Mutability** - Declaration, shadowing, constants
+3. **Functions** - Parameters, return types, expressions
+4. **Control Flow** - if/else expressions, type consistency
+5. **Primitive Types** - bool, char, integers, floats, arrays
+6. **Slices** - Array slicing and borrowing
+7. **Tuples & Destructuring** - Tuple unpacking for clarity
+8. **Vectors & Iterators** - Iterator patterns and functional style
+9. **Move Semantics & Borrowing** - Ownership, borrowing, references
 
 ### Idiomatic Rust Principles Mastered:
 1. **Immutability by default** - Must explicitly declare `mut`
 2. **Expression-based thinking** - Last expression returns value
-3. **Type safety** - Compiler enforces type consistency
+3. **Type safety** - Compiler enforces type consistency at compile time
 4. **Functional preference** - Iterators over loops by default
-5. **Memory safety** - Ownership prevents common bugs
+5. **Memory safety** - Ownership prevents common bugs without garbage collection
+6. **Exclusive borrowing** - One mutable borrow OR multiple immutable borrows
+7. **Function design** - Choose between ownership and borrowing based on intent
 
 ---
 
