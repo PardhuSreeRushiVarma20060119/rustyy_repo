@@ -142,81 +142,105 @@ fn square(num: i32) -> i32 {
 
 ---
 
-## 4. Control Flow with `if` Statements ⚠️
+## 4. Control Flow with `if` Statements ✅
 
-### Concepts Identified (Need Completion):
-- **Conditional expressions**
-- **Type consistency in if branches**
+### Concepts Learned:
+- **Conditional expressions with `if`, `else if`, `else`**
+- **Type consistency in if branches** (all branches must return same type)
 - **Multiple condition handling**
+- **`if` as expression** (returns values)
 
-### Incomplete Exercises Found:
+### Completed Exercises:
 
-#### if1.rs - Missing Implementation:
-```rust path=C:\Users\pardh\Desktop\Rust\rustlings\exercises\03_if\if1.rs start=1
+#### if1.rs - Comparing Numbers:
+```rust path=null start=null
 fn bigger(a: i32, b: i32) -> i32 {
-    // TODO: Complete this function to return the bigger number!
-    // SOLUTION NEEDED: if a > b { a } else { b }
+    if a > b {
+        a
+    } else {
+        b
+    }
 }
 ```
 
-#### if2.rs - Type Mismatch Error:
-```rust path=C:\Users\pardh\Desktop\Rust\rustlings\exercises\03_if\if2.rs start=2
+#### if2.rs - Type Consistency:
+```rust path=null start=null
 fn picky_eater(food: &str) -> &str {
     if food == "strawberry" {
         "Yummy!"
+    } else if food == "lemon" {
+        "When life gives you lemons..."
     } else {
-        1 // ERROR: returning number instead of string
+        "I'll have a bite of that!"
     }
 }
-// SOLUTION NEEDED: Different string returns for different cases
 ```
 
-#### if3.rs - Mixed Types Error:
-```rust path=C:\Users\pardh\Desktop\Rust\rustlings\exercises\03_if\if3.rs start=3
+#### if3.rs - Type Consistency in Expressions:
+```rust path=null start=null
+let animal = "crab";
 let identifier = if animal == "crab" {
     1
 } else if animal == "gopher" {
-    2.0 // ERROR: Mixed integer and float types
+    2
 } else if animal == "snake" {
     3
 } else {
-    "Unknown" // ERROR: Mixed number and string types
+    0  // All branches must return same type (i32)
 };
 ```
 
-**Key Learning**: All branches of an `if` expression must return the same type.
+**Key Learning**: All branches of an `if` expression must return the same type. Type checking is enforced at compile time, preventing type mismatches.
 
 ---
 
-## 5. Primitive Types ⚠️
+## 5. Primitive Types ✅
 
-### Concepts Identified (Partial Completion):
-- **Boolean types (`bool`)**
-- **Character types (`char`)**
-- **Arrays**
-- **Type consistency**
+### Concepts Learned:
+- **Boolean types (`bool`)** - `true` or `false`
+- **Character types (`char`)** - Single Unicode character in single quotes
+- **Numeric types** - Integers (`i32`, `i64`) and floats (`f32`, `f64`)
+- **Type consistency** - Each variable has a fixed type
+- **Array types** - Fixed-size collections of same type
 
-### Examples Found:
+### Completed Exercises:
 
-#### Booleans:
-```rust path=C:\Users\pardh\Desktop\Rust\rustlings\exercises\04_primitive_types\primitive_types1.rs start=4
-let is_morning = true;
-if is_morning {
-    println!("Good morning!");
+#### Booleans (primitive_types1.rs):
+```rust path=null start=null
+fn main() {
+    let is_morning = true;
+    if is_morning {
+        println!("Good morning!");
+    }
+    
+    let is_evening = false;
+    if is_evening {
+        println!("Good evening!");
+    }
 }
-// TODO: Need to complete with is_evening boolean
 ```
 
-#### Characters:
-```rust path=C:\Users\pardh\Desktop\Rust\rustlings\exercises\04_primitive_types\primitive_types2.rs start=6
-let my_first_initial = 'C'; // Single quotes for char
-if my_first_initial.is_alphabetic() {
-    println!("Alphabetical!");
+#### Characters (primitive_types2.rs):
+```rust path=null start=null
+fn main() {
+    let my_first_initial = 'C';
+    if my_first_initial.is_alphabetic() {
+        println!("Alphabetical!");
+    }
+    
+    let your_character = 'R';
+    println!("Your character is: {}", your_character);
 }
-// TODO: Need to declare your_character variable
 ```
 
-**Key Learning**: Rust has distinct `char` type using single quotes, different from strings.
+#### Numeric Types (primitive_types4-6.rs):
+```rust path=null start=null
+let number: u8 = 3;      // Unsigned 8-bit integer
+let float: f32 = 3.14;   // 32-bit floating point
+let sum: i32 = number as i32 + 5;  // Type casting
+```
+
+**Key Learning**: Rust has distinct `char` type using single quotes (different from strings). Type inference is powerful but explicit type annotations increase clarity.
 
 ---
 
@@ -258,11 +282,14 @@ fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
 1. **Introduction & Setup** - Basic Rust program structure
 2. **Variables** - Declaration, mutability, shadowing, constants
 3. **Functions** - Parameters, return types, expressions vs statements
+4. **Control Flow** - if/else expressions, type consistency, comparisons
+5. **Primitive Types** - booleans, characters, integers, floats, arrays
+6. **Slices** - Array slicing and borrowing
+7. **Tuples & Destructuring** - Tuple unpacking for cleaner code
+8. **Vectors & Iterators** - Iterator patterns and practical usage
 
-### ⚠️ Partially Completed/Need Work:
-1. **Control Flow** - if statements need completion
-2. **Primitive Types** - boolean and char exercises incomplete
-3. **Move Semantics** - Advanced ownership concepts started
+### ⚠️ In Progress/Need Work:
+1. **Move Semantics** - Advanced ownership concepts started
 
 ### 📝 Key Rust Principles Learned:
 1. **Immutability by Default** - Variables are immutable unless marked `mut`
@@ -421,6 +448,25 @@ input.iter().map(|&x| x * 2).collect()
 
 ### 🎯 Key Paradigm Shift:
 Rust developers think **functionally by default** with iterators, unlike imperative languages where loops are the norm. This is a fundamental difference in Rust's philosophy.
+
+---
+
+## Final Progress Summary
+
+### Major Topics Covered:
+- ✅ Fundamentals (intro, variables, functions)
+- ✅ Control structures (if expressions, type consistency)
+- ✅ Primitive types (bool, char, numbers, arrays)
+- ✅ Collections (tuples, slices, vectors)
+- ✅ Functional patterns (iterators, map, collect)
+- ⚠️ Ownership & borrowing (in progress)
+
+### Idiomatic Rust Principles Mastered:
+1. **Immutability by default** - Must explicitly declare `mut`
+2. **Expression-based thinking** - Last expression returns value
+3. **Type safety** - Compiler enforces type consistency
+4. **Functional preference** - Iterators over loops by default
+5. **Memory safety** - Ownership prevents common bugs
 
 ---
 
