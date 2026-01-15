@@ -451,6 +451,109 @@ Rust developers think **functionally by default** with iterators, unlike imperat
 
 ---
 
+## 10. Move Semantics & Borrowing (move_semantics4-5) ✅
+
+### Concepts Learned:
+- **Ownership** - Only one owner of data at a time
+- **Borrowing** - Allowing access without taking ownership
+- **Mutable vs Immutable borrows** - Exclusive mutability rule
+- **Move semantics** - Values move when passed to functions
+- **Function signatures** - Choosing between ownership and borrowing
+
+### Key Borrowing Rules:
+1. **One mutable borrow** OR **multiple immutable borrows** (not both)
+2. **Mutable borrow is exclusive** - cannot have two `&mut` references simultaneously
+3. **Borrow scope ends** when the reference is last used (not at end of block)
+4. **Ownership returns** when a function returns the value
+
+### Common Error: Multiple Mutable Borrows (move_semantics4)
+
+**WRONG:**
+```rust path=null start=null
+fn main() {
+    let mut x = vec![1, 2];
+    let y = &mut x;   // First mutable borrow
+    let z = &mut x;   // ERROR: Second mutable borrow
+    y.push(42);
+}
+```
+
+**CORRECT (Sequential Use):**
+```rust path=null start=null
+fn main() {
+    let mut x = vec![1, 2];
+    let y = &mut x;
+    y.push(42);
+    // y's borrow ends here (last use)
+    
+    let z = &mut x;  // Now allowed - y is done
+    z.push(13);
+}
+```
+
+**CORRECT (Separate Scopes):**
+```rust path=null start=null
+fn main() {
+    let mut x = vec![1, 2];
+    {
+        let y = &mut x;
+        y.push(42);
+    }  // y's scope ends
+    
+    let z = &mut x;  // Now allowed
+    z.push(13);
+}
+```
+
+### Function Signature Choice (move_semantics5)
+
+**WRONG (Mixing destructuring with borrow):**
+```rust path=null start=null
+fn string_uppercase(&(mut data): String) {  // ERROR: Type mismatch
+    data = data.to_uppercase();
+}
+```
+
+**CORRECT (Take Ownership):**
+```rust path=null start=null
+fn string_uppercase(mut data: String) {
+    data = data.to_uppercase();
+    println!("{}", data);
+}
+
+fn main() {
+    let data = "hello".to_string();
+    string_uppercase(data);  // data moved, no longer accessible
+}
+```
+
+**CORRECT (Borrow Mutably):**
+```rust path=null start=null
+fn string_uppercase(data: &mut String) {
+    data.make_ascii_uppercase();
+    println!("{}", data);
+}
+
+fn main() {
+    let mut data = "hello".to_string();
+    string_uppercase(&mut data);  // data borrowed, still accessible
+    println!("{}", data);
+}
+```
+
+### Ownership vs Borrowing Decision Table:
+
+| Situation | Use | Signature | Call |
+|-----------|-----|-----------|------|
+| Function needs to own value | `mut data: String` | Pass by value | `func(data)` |
+| Function needs to mutate, caller keeps value | `data: &mut String` | Borrow mutably | `func(&mut data)` |
+| Function just reads, caller keeps value | `data: &String` | Borrow immutably | `func(&data)` |
+| Return modified value to caller | `fn(s: String) -> String` | Own and return | `let s = func(s)` |
+
+**Key Learning**: Ownership vs borrowing is fundamental to Rust. Choose based on whether the function needs exclusive access and whether it should own the data after execution.
+
+---
+
 ## Final Progress Summary
 
 ### Major Topics Covered:
@@ -459,7 +562,7 @@ Rust developers think **functionally by default** with iterators, unlike imperat
 - ✅ Primitive types (bool, char, numbers, arrays)
 - ✅ Collections (tuples, slices, vectors)
 - ✅ Functional patterns (iterators, map, collect)
-- ⚠️ Ownership & borrowing (in progress)
+- ✅ Ownership & borrowing (move_semantics4-5)
 
 ### Idiomatic Rust Principles Mastered:
 1. **Immutability by default** - Must explicitly declare `mut`
