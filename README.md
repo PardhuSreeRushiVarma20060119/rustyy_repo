@@ -128,9 +128,9 @@ cargo run
 - ✅ Introduction & Setup
 - ✅ Variables (variables1-6)
 - ✅ Functions (functions1-5)
-- 🔄 Control Flow (if statements)
-- 🔄 Primitive Types
-- 🔄 Move Semantics
+- ✅ Control Flow (if statements)
+- ✅ Primitive Types
+- ✅ Move Semantics
 
 ## 💡 Key Takeaways
 
